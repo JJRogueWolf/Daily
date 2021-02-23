@@ -31,17 +31,27 @@ public class HomeFragment extends Fragment {
         homeRecycler.setVisibility(View.GONE);
         homeNoItemText.setVisibility(View.VISIBLE);
 
+        setupItems();
+
+        return view;
+    }
+
+    @Override
+    public void onResume() {
+        super.onResume();
+        setupItems();
+    }
+
+    private void setupItems(){
         if (allItems != null) {
             if (!allItems.isEmpty()) {
                 homeRecycler.setVisibility(View.VISIBLE);
                 homeNoItemText.setVisibility(View.GONE);
-
                 GridLayoutManager gridLayoutManager = new GridLayoutManager(getContext(), 3);
                 homeRecycler.setLayoutManager(gridLayoutManager);
                 ImageListAdapter imageListAdapter = new ImageListAdapter(allItems);
                 homeRecycler.setAdapter(imageListAdapter);
             }
         }
-        return view;
     }
 }

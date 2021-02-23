@@ -1,13 +1,18 @@
 package com.aswarth.daily;
 
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.core.app.ActivityCompat;
+import androidx.core.content.ContextCompat;
 
+import android.Manifest;
 import android.content.Intent;
+import android.content.pm.PackageManager;
 import android.os.Build;
 import android.os.Bundle;
 import android.os.Handler;
 
 import java.util.ArrayList;
+import java.util.UUID;
 
 import static com.aswarth.daily.AppController.allItems;
 
@@ -20,7 +25,8 @@ public class SplashScreen extends AppCompatActivity {
         setContentView(R.layout.activity_splash);
         sessionManager = new SessionManager(this);
         if (sessionManager.getUserId().isEmpty()){
-            sessionManager.setUserId(Build.ID + Build.USER + Build.DISPLAY);
+            sessionManager.setUserId(UUID.randomUUID().toString());
+//            sessionManager.setUserId(Build.ID + Build.USER + Build.DISPLAY);
         }
         AppController.user_id = sessionManager.getUserId();
 

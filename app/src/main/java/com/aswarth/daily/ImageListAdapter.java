@@ -1,15 +1,24 @@
 package com.aswarth.daily;
 
 import android.content.Intent;
+import android.net.Uri;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
+
+import com.google.android.gms.tasks.OnFailureListener;
+import com.google.android.gms.tasks.OnSuccessListener;
+import com.google.firebase.storage.FirebaseStorage;
+import com.google.firebase.storage.OnProgressListener;
+import com.google.firebase.storage.StorageReference;
+import com.google.firebase.storage.UploadTask;
 import com.squareup.picasso.Picasso;
 
 import java.util.ArrayList;
+import java.util.UUID;
 
 import static com.aswarth.daily.AppController.buyItems;
 
@@ -32,7 +41,7 @@ public class ImageListAdapter extends RecyclerView.Adapter<ImageListHolder> {
 
     @Override
     public void onBindViewHolder(@NonNull final ImageListHolder holder, final int position) {
-        if (!products.get(position).getImageUrl().isEmpty()){
+        if (products.get(position).getImageUrl() != null && !products.get(position).getImageUrl().isEmpty()) {
             Picasso.get().load(products.get(position).getImageUrl()).into(holder.mProductImage);
         } else {
             holder.mProductImage.setImageURI(products.get(position).getImage());
@@ -41,8 +50,8 @@ public class ImageListAdapter extends RecyclerView.Adapter<ImageListHolder> {
             @Override
             public void onClick(View v) {
                 long clickTime = System.currentTimeMillis();
-                if (clickTime - lastClickTime < DOUBLE_CLICK_TIME_DELTA){
-                    if (buyItems == null){
+                if (clickTime - lastClickTime < DOUBLE_CLICK_TIME_DELTA) {
+                    if (buyItems == null) {
                         buyItems = new ArrayList<>();
                     }
                     buyItems.add(products.get(position));

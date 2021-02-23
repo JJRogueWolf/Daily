@@ -1,0 +1,47 @@
+{
+  "project_info": {
+    "project_number": "1021321759738",
+    "project_id": "dailylistapp",
+    "storage_bucket": "dailylistapp.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:1021321759738:android:4e02b8a1e1cdb7459a7243",
+        "android_client_info": {
+          "package_name": "com.aswarth.daily"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "1021321759738-drv085q950kcldabeot1iamqev1haj5v.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.aswarth.daily",
+            "certificate_hash": "11dde43bb8aefea82d703a2326480f8033ac5ad2"
+          }
+        },
+        {
+          "client_id": "1021321759738-gke552gj0hr1fang5fb8e42ug8mt7mao.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyC1BdlMyKZCAowOcM1xVn5XA1ORz2IUNws"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "1021321759738-gke552gj0hr1fang5fb8e42ug8mt7mao.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
