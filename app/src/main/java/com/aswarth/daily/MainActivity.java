@@ -22,8 +22,12 @@ import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.google.gson.Gson;
+
 import java.io.ByteArrayOutputStream;
 import java.io.File;
+
+import static com.aswarth.daily.AppController.allItems;
 
 public class MainActivity extends AppCompatActivity {
     public final static int CAPTURE_IMAGE_ACTIVITY_REQUEST_CODE = 1001;
@@ -32,12 +36,14 @@ public class MainActivity extends AppCompatActivity {
     ImageView addItem;
     Activity activity;
     String mCapturedImagePath;
+    SessionManager sessionManager;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
         activity = this;
+        sessionManager = new SessionManager(this);
         homeNavi = findViewById(R.id.home_navi);
         buyNavi = findViewById(R.id.buy_navi);
         cloneNavi = findViewById(R.id.clone_navi);
@@ -76,13 +82,7 @@ public class MainActivity extends AppCompatActivity {
     }
 
     private void captureImage(){
-//        File file = new File(Environment.getExternalStorageDirectory()
-//                .getAbsolutePath() + "/MyFolder", "myImage"+ ".jpg");
-//
-//        mCapturedImagePath = file.getAbsolutePath();
-//        Uri outputFileUri = Uri.fromFile(file);
         Intent intent = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
-//        intent.putExtra(MediaStore.EXTRA_OUTPUT, outputFileUri);
         startActivityForResult(intent, CAPTURE_IMAGE_ACTIVITY_REQUEST_CODE);
     }
 
@@ -93,7 +93,9 @@ public class MainActivity extends AppCompatActivity {
             if (resultCode == RESULT_OK) {
                 if (data != null) {
                     Bitmap photo = (Bitmap) data.getExtras().get("data");
-                    AppController.allItems.add(new Product(getImageUri(getApplicationContext(), photo)));
+                    allItems.add(new Product(getApplicationContext(), getImageUri(getApplicationContext(), photo)));
+                    Gson gson = new Gson();
+                    sessionManager.setItemList(gson.toJson(allItems));
                 }
             }
         }

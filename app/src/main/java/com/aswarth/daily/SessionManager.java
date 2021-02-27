@@ -15,11 +15,21 @@ public class SessionManager {
     private static final String PREF_NAME = "SessionManager";
 
     public static final String USER_ID = "user_id";
+    public static final String ITEMS = "items";
     // Constructor
     public SessionManager(Context context){
         this._context = context;
         ref = _context.getSharedPreferences(PREF_NAME, PRIVATE_MODE);
         editor = ref.edit();
+    }
+
+    public void setItemList(String items){
+        editor.putString(ITEMS, items);
+        editor.commit();
+    }
+
+    public String getItems(){
+        return ref.getString(ITEMS, "");
     }
 
     public String getUserId(){
