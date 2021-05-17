@@ -14,21 +14,53 @@
         android:layout_marginStart="32dp"
         android:layout_marginLeft="32dp"
         android:layout_marginTop="16dp"
-        android:fontFamily="@font/roboto__regular"
-        android:text="@string/app_name"
+        android:fontFamily="@font/rowdies_bold"
+        android:text="@string/app_name_cap"
+        android:textColor="@color/black"
         android:textSize="@dimen/header_app_name"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
     <ImageView
         android:id="@+id/add_item"
-        android:layout_width="wrap_content"
-        android:layout_height="0dp"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
         android:layout_marginEnd="16dp"
-        android:layout_marginRight="16dp"
-        android:src="@drawable/add_item"
+        android:layout_marginTop="8dp"
+        android:layout_marginBottom="8dp"
+        android:src="@drawable/camera_add_icon"
+        android:padding="8dp"
         app:layout_constraintBottom_toBottomOf="@+id/textView"
+        app:layout_constraintDimensionRatio="1:1"
         app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toTopOf="@+id/textView" />
+
+    <ImageView
+        android:id="@+id/qr_code_generator"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:src="@drawable/qrcode_generator"
+        android:layout_marginTop="8dp"
+        android:layout_marginBottom="8dp"
+        android:layout_marginEnd="8dp"
+        android:padding="8dp"
+        app:layout_constraintBottom_toBottomOf="@+id/textView"
+        app:layout_constraintDimensionRatio="1:1"
+        app:layout_constraintEnd_toStartOf="@+id/add_item"
+        app:layout_constraintTop_toTopOf="@+id/textView" />
+
+    <ImageView
+        android:id="@+id/qr_code_scanner"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:src="@drawable/qrcode_scanner"
+        android:layout_marginTop="8dp"
+        android:layout_marginBottom="8dp"
+        android:layout_marginEnd="8dp"
+        android:padding="8dp"
+        app:layout_constraintBottom_toBottomOf="@+id/textView"
+        app:layout_constraintDimensionRatio="1:1"
+        app:layout_constraintEnd_toStartOf="@+id/qr_code_generator"
         app:layout_constraintTop_toTopOf="@+id/textView" />
 
     <TextView
@@ -38,46 +70,100 @@
         android:layout_marginStart="32dp"
         android:layout_marginLeft="32dp"
         android:layout_marginTop="16dp"
-        android:fontFamily="@font/roboto__regular"
+        android:fontFamily="@font/squadaone_regular"
         android:text="@string/home"
-        android:textSize="@dimen/navi_menu_text"
+        android:textColor="@color/white"
+        android:textSize="@dimen/navi_text"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/textView" />
 
-    <TextView
+    <ImageView
+        android:id="@+id/home_navi_icon"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:scaleX="1.2"
+        android:scaleY="1.2"
+        android:clickable="false"
+        android:src="@drawable/home_icon"
+        app:layout_constraintBottom_toBottomOf="@+id/home_navi"
+        app:layout_constraintDimensionRatio="1:1"
+        app:layout_constraintEnd_toEndOf="@+id/home_navi"
+        app:layout_constraintStart_toStartOf="@+id/home_navi"
+        app:layout_constraintTop_toTopOf="@+id/home_navi"
+        app:tint="@color/black" />
+
+    <ImageView
         android:id="@+id/clone_navi"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:fontFamily="@font/roboto__regular"
-        android:text="@string/clone"
-        android:textSize="@dimen/navi_menu_text"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:layout_marginStart="24dp"
+        android:layout_marginEnd="24dp"
+        android:src="@drawable/clone"
+        app:layout_constraintBottom_toBottomOf="@+id/home_navi"
         app:layout_constraintEnd_toStartOf="@+id/buy_navi"
         app:layout_constraintStart_toEndOf="@+id/home_navi"
         app:layout_constraintTop_toTopOf="@+id/home_navi" />
+
+    <TextView
+        android:id="@+id/shop_count"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:background="@drawable/round_corner"
+        android:backgroundTint="#FF7272"
+        android:elevation="10dp"
+        android:fontFamily="@font/roboto__regular"
+        android:gravity="end"
+        android:paddingStart="6dp"
+        android:paddingEnd="6dp"
+        android:paddingBottom="2dp"
+        android:clickable="false"
+        android:text="5"
+        android:textColor="@color/black"
+        android:textSize="16dp"
+        app:layout_constraintBottom_toTopOf="@+id/shop_navi_icon"
+        app:layout_constraintEnd_toStartOf="@+id/shop_navi_icon"
+        app:layout_constraintStart_toStartOf="@+id/shop_navi_icon"
+        app:layout_constraintTop_toTopOf="@+id/shop_navi_icon" />
 
     <TextView
         android:id="@+id/buy_navi"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginEnd="32dp"
-        android:layout_marginRight="32dp"
-        android:fontFamily="@font/roboto__regular"
-        android:text="@string/buy"
-        android:textSize="@dimen/navi_menu_text"
+        android:fontFamily="@font/squadaone_regular"
+        android:text="@string/shop"
+        android:textColor="@color/white"
+        android:textSize="@dimen/navi_text"
+        app:layout_constraintBottom_toBottomOf="@+id/home_navi"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintTop_toTopOf="@+id/home_navi" />
 
+    <ImageView
+        android:id="@+id/shop_navi_icon"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:clickable="false"
+        android:scaleX="1.2"
+        android:scaleY="1.2"
+        android:src="@drawable/cart_icon"
+        app:layout_constraintBottom_toBottomOf="@+id/home_navi"
+        app:layout_constraintDimensionRatio="1:1"
+        app:layout_constraintEnd_toEndOf="@+id/buy_navi"
+        app:layout_constraintStart_toStartOf="@+id/buy_navi"
+        app:layout_constraintTop_toTopOf="@+id/home_navi"
+        app:tint="@color/black" />
+
     <fragment
         android:id="@+id/fragment_holder"
+        android:name="com.aswarth.dailyApp.HomeFragment"
         android:layout_width="match_parent"
         android:layout_height="0dp"
-        android:layout_marginTop="16dp"
+        android:layout_marginTop="8dp"
         android:layout_marginBottom="16dp"
         app:layout_constraintBottom_toTopOf="@+id/textView5"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/clone_navi"
-        android:name="com.aswarth.daily.HomeFragment"
+        app:layout_constraintTop_toBottomOf="@+id/home_navi"
         tools:layout="@layout/fragment_home" />
 
     <TextView
@@ -86,12 +172,74 @@
         android:layout_height="wrap_content"
         android:layout_marginStart="42sp"
         android:layout_marginEnd="42sp"
-        android:layout_marginBottom="32dp"
+        android:layout_marginBottom="8dp"
         android:gravity="center"
         android:text="@string/double_tap_text"
+        app:layout_constraintBottom_toTopOf="@+id/refresh_button"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent" />
+
+    <Button
+        android:id="@+id/refresh_button"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:fontFamily="@font/roboto__regular"
+        android:text="@string/refresh_list"
+        android:textColor="@color/black"
+        app:layout_constraintBottom_toTopOf="@+id/adView"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent" />
+
+    <com.google.android.gms.ads.AdView
+        android:id="@+id/adView"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        app:adSize="SMART_BANNER"
+        app:adUnitId="@string/unit_id"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent" />
+
+    <RelativeLayout
+        android:id="@+id/loading_screen"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:elevation="25sp"
+        android:gravity="center"
+        android:visibility="gone"
+        android:padding="24dp"
+        android:clickable="true"
+        android:focusable="true"
+        android:background="#AD4C4C4C">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:padding="16dp"
+            android:gravity="center"
+            android:background="@drawable/round_corner">
+
+            <ProgressBar
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:indeterminateTint="@color/black"
+                android:alpha="0.4"/>
+
+            <TextView
+                android:id="@+id/loading_text"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/adding_to_shop"
+                android:fontFamily="@font/rowdies_regular"
+                android:textColor="@color/black"
+                android:textSize="@dimen/normal_text"
+                android:paddingStart="16dp"
+                android:alpha="0.6"
+                android:paddingEnd="16dp"/>
+
+        </LinearLayout>
+
+    </RelativeLayout>
 
 
 </androidx.constraintlayout.widget.ConstraintLayout>

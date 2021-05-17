@@ -1,0 +1,46 @@
+package com.aswarth.dailyApp;
+
+import android.os.Bundle;
+import android.view.LayoutInflater;
+import android.view.View;
+import android.view.ViewGroup;
+import android.widget.TextView;
+
+import androidx.fragment.app.Fragment;
+import androidx.recyclerview.widget.GridLayoutManager;
+import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
+
+import static com.aswarth.dailyApp.AppController.allItems;
+import static com.aswarth.dailyApp.AppController.buyItems;
+
+public class BuyFragment extends Fragment {
+
+    View view;
+    RecyclerView buyRecycler;
+    TextView buyNoItemText;
+
+    @Override
+    public View onCreateView(LayoutInflater inflater, ViewGroup container,
+                             Bundle savedInstanceState) {
+        // Inflate the layout for this fragment
+        view =  inflater.inflate(R.layout.fragment_buy, container, false);
+        buyRecycler = view.findViewById(R.id.buy_recycler);
+        buyNoItemText = view.findViewById(R.id.buy_no_item);
+
+        buyRecycler.setVisibility(View.GONE);
+        buyNoItemText.setVisibility(View.VISIBLE);
+
+        if (buyItems != null) {
+            if (!buyItems.isEmpty()) {
+                buyRecycler.setVisibility(View.VISIBLE);
+                buyNoItemText.setVisibility(View.GONE);
+                GridLayoutManager gridLayoutManager = new GridLayoutManager(getContext(), 3);
+                buyRecycler.setLayoutManager(gridLayoutManager);
+                BuyListAdapter imageListAdapter = new BuyListAdapter(requireContext(), buyItems);
+                buyRecycler.setAdapter(imageListAdapter);
+            }
+        }
+        return view;
+    }
+}

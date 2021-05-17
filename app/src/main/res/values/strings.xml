@@ -1,12 +1,20 @@
 <resources>
     <string name="app_name">Daily</string>
+    <string name="app_name_cap">DAILY</string>
     <string name="list_image">list_image</string>
-    <string name="home">Home</string>
+    <string name="home">HOME</string>
     <string name="buy">Buy</string>
-    <string name="clone">Clone</string>
+    <string name="shop">SHOP</string>
+    <string name="clone">CLONE</string>
     <string name="double_tap_text">Double tap add item to buy list</string>
 
     <!-- TODO: Remove or change this placeholder text -->
     <string name="hello_blank_fragment">Hello blank fragment</string>
     <string name="no_item">No Item</string>
+
+    <string name="unit_id">ca-app-pub-7268501241400185/1945619792</string>
+    <string name="adding_to_shop">Adding To Shop</string>
+    <string name="delete_from_shop">Removing From Shop</string>
+    <string name="loading_all_data">Loading All Data</string>
+    <string name="refresh_list">Refresh List</string>
 </resources>

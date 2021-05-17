@@ -9,13 +9,53 @@
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:fontFamily="@font/roboto__regular"
-        android:text="@string/app_name"
+        android:fontFamily="@font/rowdies_bold"
+        android:text="@string/app_name_cap"
         android:textSize="@dimen/splash_text"
+        android:textColor="@color/black"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
+    
+    <RelativeLayout
+        android:id="@+id/splash_loading"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:gravity="center"
+        android:padding="24dp"
+        android:elevation="30sp"
+        android:clickable="true"
+        android:focusable="true"
+        android:background="#9CAFAFAF">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:padding="16dp"
+            android:gravity="center"
+            android:background="@drawable/round_corner">
+
+            <ProgressBar
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:indeterminateTint="@color/black"
+                android:alpha="0.4"/>
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/loading_all_data"
+                android:fontFamily="@font/rowdies_regular"
+                android:textColor="@color/black"
+                android:textSize="@dimen/normal_text"
+                android:paddingStart="16dp"
+                android:alpha="0.6"
+                android:paddingEnd="16dp"/>
+
+        </LinearLayout>
+        
+    </RelativeLayout>
 
 
 
