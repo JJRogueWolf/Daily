@@ -20,6 +20,7 @@ import android.view.WindowManager;
 import android.widget.RelativeLayout;
 import android.widget.Toast;
 
+import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.play.core.appupdate.AppUpdateInfo;
 import com.google.android.play.core.appupdate.AppUpdateManager;
 import com.google.android.play.core.appupdate.AppUpdateManagerFactory;
@@ -28,15 +29,17 @@ import com.google.android.play.core.install.InstallStateUpdatedListener;
 import com.google.android.play.core.install.model.AppUpdateType;
 import com.google.android.play.core.install.model.InstallStatus;
 import com.google.android.play.core.install.model.UpdateAvailability;
-import com.google.android.play.core.tasks.OnCompleteListener;
 import com.google.android.play.core.tasks.OnFailureListener;
 import com.google.android.play.core.tasks.OnSuccessListener;
 import com.google.android.play.core.tasks.Task;
+import com.google.firebase.auth.AuthResult;
+import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
+import com.google.firebase.messaging.FirebaseMessaging;
 import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
 import com.squareup.picasso.Picasso;
@@ -105,12 +108,22 @@ public class SplashScreen extends AppCompatActivity {
 
         if (!cloned_user_id.isEmpty()) {
             LoadClone();
-        }else {
+        } else {
             checkForAppUpdate();
         }
+        FirebaseMessaging.getInstance().getToken()
+                .addOnCompleteListener(task -> {
+                    if (!task.isSuccessful()) {
+                        Log.w("sss", "Fetching FCM registration token failed", task.getException());
+                        return;
+                    }
+
+                    // Get new FCM registration token
+                    String token = task.getResult();
+                });
     }
 
-    private void checkForAppUpdate(){
+    private void checkForAppUpdate() {
         AppUpdateManager appUpdateManager = AppUpdateManagerFactory.create(getApplicationContext());
         Task<AppUpdateInfo> appUpdateInfoTask = appUpdateManager.getAppUpdateInfo();
         appUpdateInfoTask.addOnSuccessListener(result -> {
@@ -160,86 +173,92 @@ public class SplashScreen extends AppCompatActivity {
     }
 
     private void LoadBuy() {
-        firebaseDatabase = FirebaseDatabase.getInstance();
-        databaseReference = firebaseDatabase.getReference().child("users").child(user_id);
-        databaseReference.addValueEventListener(new ValueEventListener() {
-            @Override
-            public void onDataChange(@NonNull DataSnapshot snapshot) {
-                ArrayList<Items> list = new ArrayList<>(buyItems);
-                for (Items item : list) {
-                    int count = 0;
-                    for (DataSnapshot dataSnapshot : snapshot.getChildren()) {
-                        if (dataSnapshot.getValue().toString().replace("url=", "").replace("{", "").replace("}", "").equals(item.getImageUrl())) {
-                            count++;
+        FirebaseAuth auth = FirebaseAuth.getInstance();
+        auth.signInAnonymously().addOnCompleteListener(task -> {
+            firebaseDatabase = FirebaseDatabase.getInstance();
+            databaseReference = firebaseDatabase.getReference().child("users").child(user_id);
+            databaseReference.addValueEventListener(new ValueEventListener() {
+                @Override
+                public void onDataChange(@NonNull DataSnapshot snapshot) {
+                    ArrayList<Items> list = new ArrayList<>(buyItems);
+                    for (Items item : list) {
+                        int count = 0;
+                        for (DataSnapshot dataSnapshot : snapshot.getChildren()) {
+                            if (dataSnapshot.getValue().toString().replace("url=", "").replace("{", "").replace("}", "").equals(item.getImageUrl())) {
+                                count++;
+                            }
                         }
-                    }
-                    if (count == 0) {
-                        for (Items items : buyItems) {
-                            if (items.getImageUrl().equals(item.getImageUrl())) {
-                                buyItems.remove(items);
-                                break;
+                        if (count == 0) {
+                            for (Items items : buyItems) {
+                                if (items.getImageUrl().equals(item.getImageUrl())) {
+                                    buyItems.remove(items);
+                                    break;
+                                }
                             }
                         }
                     }
+                    Log.i("tt", "ugu");
                 }
-                Log.i("tt", "ugu");
-            }
 
-            @Override
-            public void onCancelled(@NonNull DatabaseError error) {
-                splashLoading.setVisibility(View.GONE);
-                Toast.makeText(SplashScreen.this, "Something went wrong!! Please try again later", Toast.LENGTH_SHORT).show();
-            }
+                @Override
+                public void onCancelled(@NonNull DatabaseError error) {
+                    splashLoading.setVisibility(View.GONE);
+                    Toast.makeText(SplashScreen.this, "Something went wrong!! Please try again later", Toast.LENGTH_SHORT).show();
+                }
+            });
         });
     }
 
     private void LoadClone() {
-        firebaseDatabase = FirebaseDatabase.getInstance();
-        databaseReference = firebaseDatabase.getReference().child("users").child(cloned_user_id);
-        databaseReference.addValueEventListener(new ValueEventListener() {
-            @Override
-            public void onDataChange(@NonNull DataSnapshot snapshot) {
-                ArrayList<Items> list = new ArrayList<>(cloneItems);
-                for (Items item : list) {
-                    int count = 0;
-                    for (DataSnapshot dataSnapshot : snapshot.getChildren()) {
-                        if (dataSnapshot.getValue().toString().replace("url=", "").replace("{", "").replace("}", "").equals(item.getImageUrl())) {
-                            count++;
+        FirebaseAuth auth = FirebaseAuth.getInstance();
+        auth.signInAnonymously().addOnCompleteListener(task -> {
+            firebaseDatabase = FirebaseDatabase.getInstance();
+            databaseReference = firebaseDatabase.getReference().child("users").child(cloned_user_id);
+            databaseReference.addValueEventListener(new ValueEventListener() {
+                @Override
+                public void onDataChange(@NonNull DataSnapshot snapshot) {
+                    ArrayList<Items> list = new ArrayList<>(cloneItems);
+                    for (Items item : list) {
+                        int count = 0;
+                        for (DataSnapshot dataSnapshot : snapshot.getChildren()) {
+                            if (dataSnapshot.getValue().toString().replace("url=", "").replace("{", "").replace("}", "").equals(item.getImageUrl())) {
+                                count++;
+                            }
                         }
-                    }
-                    if (count == 0) {
-                        for (Items items : cloneItems) {
-                            if (items.getImageUrl().equals(item.getImageUrl())) {
-                                cloneItems.remove(items);
-                                break;
+                        if (count == 0) {
+                            for (Items items : cloneItems) {
+                                if (items.getImageUrl().equals(item.getImageUrl())) {
+                                    cloneItems.remove(items);
+                                    break;
+                                }
                             }
                         }
                     }
-                }
-                for (DataSnapshot dataSnapshot : snapshot.getChildren()) {
-                    int count = 0;
-                    for (Items item : cloneItems) {
-                        if (item.getImageUrl().equals(dataSnapshot.getValue().toString().replace("url=", "").replace("{", "").replace("}", ""))) {
-                            count++;
+                    for (DataSnapshot dataSnapshot : snapshot.getChildren()) {
+                        int count = 0;
+                        for (Items item : cloneItems) {
+                            if (item.getImageUrl().equals(dataSnapshot.getValue().toString().replace("url=", "").replace("{", "").replace("}", ""))) {
+                                count++;
+                            }
+                        }
+                        if (count == 0) {
+                            cloneItems.add(new Items(dataSnapshot.getValue().toString().replace("url=", "").replace("{", "").replace("}", "")));
                         }
                     }
-                    if (count == 0) {
-                        cloneItems.add(new Items(dataSnapshot.getValue().toString().replace("url=", "").replace("{", "").replace("}", "")));
-                    }
-                }
-                databaseReference.removeEventListener(this);
+                    databaseReference.removeEventListener(this);
 //                cloneUriToUrl(0);
-                checkForAppUpdate();
-            }
+                    checkForAppUpdate();
+                }
 
-            @Override
-            public void onCancelled(@NonNull DatabaseError error) {
-                splashLoading.setVisibility(View.GONE);
-                goToMainPage();
-                Toast.makeText(SplashScreen.this, "Something went wrong!! Please try again later", Toast.LENGTH_SHORT).show();
-            }
-        });
-    }
+                @Override
+                public void onCancelled(@NonNull DatabaseError error) {
+                    splashLoading.setVisibility(View.GONE);
+                    goToMainPage();
+                    Toast.makeText(SplashScreen.this, "Something went wrong!! Please try again later", Toast.LENGTH_SHORT).show();
+                }
+            });
+    });
+}
 
     private void cloneUriToUrl(int count) {
         downloadURL(count);

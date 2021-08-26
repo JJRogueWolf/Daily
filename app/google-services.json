@@ -1,18 +1,27 @@
 {
   "project_info": {
     "project_number": "612169539420",
+    "firebase_url": "https://daily-412be-default-rtdb.firebaseio.com",
     "project_id": "daily-412be",
     "storage_bucket": "daily-412be.appspot.com"
   },
   "client": [
     {
       "client_info": {
-        "mobilesdk_app_id": "1:612169539420:android:c5c77917fca9789966eb99",
+        "mobilesdk_app_id": "1:612169539420:android:19808fcd6834523d66eb99",
         "android_client_info": {
           "package_name": "com.aswarth.dailyApp"
         }
       },
       "oauth_client": [
+        {
+          "client_id": "612169539420-2gg661eidp7mtoo1rf6h8pt9vkppfm6u.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.aswarth.dailyApp",
+            "certificate_hash": "11dde43bb8aefea82d703a2326480f8033ac5ad2"
+          }
+        },
         {
           "client_id": "612169539420-91o9ruk3sd7u15ifbmcpjlg4hleejjpp.apps.googleusercontent.com",
           "client_type": 3
